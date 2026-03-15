@@ -1,7 +1,14 @@
-CREATE TYPE delivery_type_enum AS ENUM ('water', 'land', 'air');
-CREATE TYPE order_status_enum AS ENUM ('pending', 'processing', 'delivered', 'cancelled');
+DO $$ BEGIN
+    CREATE TYPE delivery_type_enum AS ENUM ('water', 'land', 'air');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
-CREATE TABLE clients (
+DO $$ BEGIN
+    CREATE TYPE order_status_enum AS ENUM ('pending', 'processing', 'delivered', 'cancelled');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+CREATE TABLE IF NOT EXISTS clients (
     id         SERIAL PRIMARY KEY,
     name       VARCHAR(255) NOT NULL,
     phone      VARCHAR(50),
@@ -10,7 +17,7 @@ CREATE TABLE clients (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
     id               SERIAL PRIMARY KEY,
     client_id        INT NOT NULL REFERENCES clients(id),
     delivery_type    delivery_type_enum NOT NULL,
@@ -22,6 +29,6 @@ CREATE TABLE orders (
     updated_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_orders_client_id ON orders(client_id);
-CREATE INDEX idx_orders_status ON orders(status);
-CREATE INDEX idx_clients_phone ON clients(phone);
+CREATE INDEX IF NOT EXISTS idx_orders_client_id ON orders(client_id);
+CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+CREATE INDEX IF NOT EXISTS idx_clients_phone ON clients(phone);

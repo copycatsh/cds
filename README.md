@@ -1,6 +1,8 @@
-# CDS — Common Delivery System
+# CDS - Common Delivery System
 
 Full-stack delivery management app. Factory Method pattern for delivery strategies (Water, Land, Air), REST API, React SPA.
+
+![Preview](preview.gif)
 
 ## Stack
 
@@ -10,16 +12,11 @@ Full-stack delivery management app. Factory Method pattern for delivery strategi
 
 ## Quick Start
 
-```
-cp .env.example .env
-make up
-make install
-make install-frontend
-make migrate
+```bash
+make build
 ```
 
-Backend API: `http://localhost:8080/api/`
-Frontend: `http://localhost:5173`
+Open http://localhost:5173
 
 ## API
 
@@ -39,9 +36,9 @@ Error envelope: `{ "error": { "code": string, "message": string, "status": int }
 
 | Command | Description |
 |---------|-------------|
+| `make build` | Build, install deps, migrate — full setup |
 | `make up` | Start all services |
 | `make down` | Stop all services |
-| `make build` | Build Docker images |
 | `make install` | Install PHP dependencies |
 | `make install-frontend` | Install frontend dependencies |
 | `make migrate` | Run database migrations |
