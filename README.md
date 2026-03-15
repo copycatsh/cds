@@ -1,27 +1,51 @@
+# CDS — Common Delivery System
 
-# brief delivery system process built with LAMP stack and docker
-# based on factory method of GOF story ;)
-This is a basic LAMP stack environment built using Docker Compose. It consists following:
+Full-stack delivery management app. Factory Method pattern for delivery strategies (Water, Land, Air), REST API, React SPA.
 
-* PHP 7.2
-* Apache 2.4
-* MySQL 5.7
-* phpMyAdmin
+## Stack
 
-## Installation
+**Backend:** PHP 8.3, PostgreSQL 16, FastRoute, PHPUnit 10, phpstan level 6
+**Frontend:** React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, React Query, Vitest + MSW
+**Infra:** Docker Compose (nginx, php-fpm, postgres, node)
 
-```shell
-cp sample.env .env
-docker-compose up -d
+## Quick Start
+
+```
+cp .env.example .env
+make up
+make install
+make install-frontend
+make migrate
 ```
 
-Your LAMP stack is now ready!! You can access it via `http://localhost`.
+Backend API: `http://localhost:8080/api/`
+Frontend: `http://localhost:5173`
 
+## API
 
-## phpMyAdmin
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /api/clients | List clients |
+| POST | /api/clients | Create client |
+| GET | /api/clients/:id | Get client |
+| DELETE | /api/clients/:id | Delete client |
+| GET | /api/orders | List orders |
+| POST | /api/orders | Create order |
+| GET | /api/orders/:id | Get order |
 
-phpMyAdmin is configured to run on port 8080. Use following default credentials.
+Error envelope: `{ "error": { "code": string, "message": string, "status": int } }`
 
-`http://localhost:8080/`  
-username: root  
-password: root
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `make up` | Start all services |
+| `make down` | Stop all services |
+| `make build` | Build Docker images |
+| `make install` | Install PHP dependencies |
+| `make install-frontend` | Install frontend dependencies |
+| `make migrate` | Run database migrations |
+| `make test` | Run backend tests (PHPUnit) |
+| `make test-frontend` | Run frontend tests (Vitest) |
+| `make lint` | Run php-cs-fixer |
+| `make analyse` | Run phpstan |
