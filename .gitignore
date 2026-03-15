@@ -1,7 +1,11 @@
 /.env
 /.vscode
 /.idea
+.DS_Store
+
+/vendor/
 /data/*
 /logs/*
-.DS_Store
-/www/vendor/
+
+.php-cs-fixer.cache
+.phpunit.result.cache
