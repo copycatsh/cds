@@ -13,6 +13,12 @@ class ClientRepository extends AbstractRepository
         parent::__construct($pdo, 'clients');
     }
 
+    /** @return list<string> */
+    protected function allowedColumns(): array
+    {
+        return ['name', 'phone', 'address'];
+    }
+
     /** @return list<array<string, mixed>> */
     public function findByPhone(string $phone): array
     {

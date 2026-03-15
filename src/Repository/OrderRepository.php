@@ -19,6 +19,12 @@ class OrderRepository extends AbstractRepository
         parent::__construct($pdo, 'orders');
     }
 
+    /** @return list<string> */
+    protected function allowedColumns(): array
+    {
+        return ['client_id', 'delivery_type', 'status', 'tracking_code', 'delivery_address', 'cost'];
+    }
+
     /** @return list<array<string, mixed>> */
     public function findByClientId(int $clientId): array
     {

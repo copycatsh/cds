@@ -15,6 +15,24 @@ abstract class AbstractRepository
     ) {
     }
 
+    /** @return list<string> */
+    abstract protected function allowedColumns(): array;
+
+    /**
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
+     */
+    protected function filterColumns(array $data): array
+    {
+        $allowed = $this->allowedColumns();
+
+        return array_filter(
+            $data,
+            fn (string $key) => in_array($key, $allowed, true),
+            ARRAY_FILTER_USE_KEY,
+        );
+    }
+
     /** @return array<string, mixed>|null */
     public function findById(int $id): ?array
     {
@@ -56,6 +74,7 @@ abstract class AbstractRepository
      */
     public function create(array $data): int
     {
+        $data = $this->filterColumns($data);
         $columns = implode(', ', array_keys($data));
         $placeholders = implode(', ', array_map(fn (string $k) => ':' . $k, array_keys($data)));
 
@@ -72,6 +91,7 @@ abstract class AbstractRepository
     {
         $this->findByIdOrFail($id);
 
+        $data = $this->filterColumns($data);
         $sets = implode(', ', array_map(fn (string $k) => $k . ' = :' . $k, array_keys($data)));
 
         $stmt = $this->pdo->prepare(
