@@ -20,14 +20,14 @@ try {
         $clients = $bootstrap->getClientController();
         $orders = $bootstrap->getOrderController();
 
-        $r->addRoute('GET', '/clients', [$clients, 'index']);
-        $r->addRoute('POST', '/clients', [$clients, 'create']);
-        $r->addRoute('GET', '/clients/{id:\d+}', [$clients, 'show']);
-        $r->addRoute('DELETE', '/clients/{id:\d+}', [$clients, 'delete']);
+        $r->addRoute('GET', '/api/clients', [$clients, 'index']);
+        $r->addRoute('POST', '/api/clients', [$clients, 'create']);
+        $r->addRoute('GET', '/api/clients/{id:\d+}', [$clients, 'show']);
+        $r->addRoute('DELETE', '/api/clients/{id:\d+}', [$clients, 'delete']);
 
-        $r->addRoute('GET', '/orders', [$orders, 'index']);
-        $r->addRoute('POST', '/orders', [$orders, 'create']);
-        $r->addRoute('GET', '/orders/{id:\d+}', [$orders, 'show']);
+        $r->addRoute('GET', '/api/orders', [$orders, 'index']);
+        $r->addRoute('POST', '/api/orders', [$orders, 'create']);
+        $r->addRoute('GET', '/api/orders/{id:\d+}', [$orders, 'show']);
     });
 
     $routeInfo = $dispatcher->dispatch($request->method, $request->uri);
