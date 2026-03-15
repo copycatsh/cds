@@ -1,0 +1,3 @@
+export default function OrderList() {
+  return <h1 className="text-2xl font-bold text-gray-900">Orders</h1>;
+}
