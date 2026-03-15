@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useOrders } from '../hooks/useOrders';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { AnimatedRow } from '../components/AnimatedList';
 import type { DeliveryType, OrderStatus } from '../types';
 
 const deliveryBadge: Record<DeliveryType, string> = {
@@ -55,8 +56,8 @@ export default function OrderList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {orders?.map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50">
+              {orders?.map((order, i) => (
+                <AnimatedRow key={order.id} index={i}>
                   <td className="px-6 py-4">
                     <Link
                       to={`/orders/${order.id}`}
@@ -77,7 +78,7 @@ export default function OrderList() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900 text-right font-mono">${order.cost}</td>
-                </tr>
+                </AnimatedRow>
               ))}
             </tbody>
           </table>

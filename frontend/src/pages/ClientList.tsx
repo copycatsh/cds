@@ -4,6 +4,7 @@ import { useClients, useDeleteClient } from '../hooks/useClients';
 import { ApiError } from '../api';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { AnimatedRow } from '../components/AnimatedList';
 
 export default function ClientList() {
   const { data: clients, isLoading, error } = useClients();
@@ -55,8 +56,8 @@ export default function ClientList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {clients?.map((client) => (
-                <tr key={client.id} className="hover:bg-gray-50">
+              {clients?.map((client, i) => (
+                <AnimatedRow key={client.id} index={i}>
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">{client.name}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{client.phone ?? '—'}</td>
                   <td className="px-6 py-4 text-sm text-gray-500">{client.address ?? '—'}</td>
@@ -69,7 +70,7 @@ export default function ClientList() {
                       Delete
                     </button>
                   </td>
-                </tr>
+                </AnimatedRow>
               ))}
             </tbody>
           </table>

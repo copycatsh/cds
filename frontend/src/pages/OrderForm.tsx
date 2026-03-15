@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useCreateOrder } from '../hooks/useOrders';
 import { useClients } from '../hooks/useClients';
 import ErrorMessage from '../components/ErrorMessage';
@@ -78,9 +79,11 @@ export default function OrderForm() {
           </label>
           <div className="grid grid-cols-3 gap-3">
             {(Object.entries(DELIVERY_OPTIONS) as [DeliveryType, typeof selected][]).map(([type, opt]) => (
-              <button
+              <motion.button
                 key={type}
                 type="button"
+                whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -2 }}
                 onClick={() => setDeliveryType(type)}
                 className={`rounded-lg border-2 p-3 text-center transition-colors ${
                   deliveryType === type
@@ -90,7 +93,7 @@ export default function OrderForm() {
               >
                 <div className="text-sm font-medium capitalize">{opt.label}</div>
                 <div className="text-xs text-gray-500 mt-1">${opt.cost} &middot; {opt.days}d</div>
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
