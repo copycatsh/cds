@@ -9,3 +9,6 @@
 
 .php-cs-fixer.cache
 .phpunit.result.cache
+
+/frontend/node_modules/
+/frontend/dist/

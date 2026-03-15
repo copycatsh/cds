@@ -1,4 +1,4 @@
-.PHONY: up down build migrate test lint analyse install
+.PHONY: up down build migrate test lint analyse install install-frontend dev-frontend build-frontend test-frontend
 
 up:
 	docker compose up -d
@@ -23,3 +23,15 @@ lint:
 
 analyse:
 	docker compose exec php vendor/bin/phpstan analyse
+
+install-frontend:
+	docker compose exec frontend npm install
+
+dev-frontend:
+	docker compose exec frontend npm run dev
+
+build-frontend:
+	docker compose exec frontend npm run build
+
+test-frontend:
+	docker compose exec frontend npm run test
